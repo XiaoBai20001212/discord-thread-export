@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "Discord 帖子导出",
+  "version": "1.0.0",
+  "description": "把当前打开的 Discord 帖子（你浏览过、已在浏览器里加载的内容）导出为一个 zip：结构化 Markdown + 图片。不使用 Token。",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*.discordapp.com/*",
+    "https://*.discordapp.net/*"
+  ],
+  "action": {
+    "default_title": "Discord 帖子导出：点我开/关"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://discord.com/*",
+        "https://ptb.discord.com/*",
+        "https://canary.discord.com/*"
+      ],
+      "js": [
+        "page.js"
+      ],
+      "world": "MAIN",
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://discord.com/*",
+        "https://ptb.discord.com/*",
+        "https://canary.discord.com/*"
+      ],
+      "js": [
+        "bridge.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
